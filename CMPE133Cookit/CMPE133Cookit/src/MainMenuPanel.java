@@ -54,7 +54,7 @@ public class MainMenuPanel extends JFrame {
 	private JLabel titleNameLabel,nameLabel,potLabel ,plateLabel,grillLabel;
 	
 	private JPanel optionPanel, buttonMenuPanel;
-	private JLabel optionArea;
+	//private JTextArea optionArea;
 	
 
 	Font titleFont = new Font("Castellar",Font.PLAIN, 120); 
@@ -64,11 +64,6 @@ public class MainMenuPanel extends JFrame {
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	BackHandler backHandler = new BackHandler();
-	EasyHandler easyHandler = new EasyHandler();
-	MediumHandler medHandler = new MediumHandler();
-	HardHandler hardHandler = new HardHandler();
-	HelpHandler helpHandler = new HelpHandler();
-	
 	private JLayeredPane layeredPane;
 	
 	private void setIcon() {
@@ -239,7 +234,7 @@ public class MainMenuPanel extends JFrame {
 				btnHelp.setBackground(Color.black);
 				btnHelp.setForeground(Color.white); 
 				btnHelp.setFont(normalFont);
-				btnHelp.addActionListener(helpHandler);
+
 				btnHelp.setBorder(null);
 				btnHelp.setBounds(522, 518, 271, 82);
 				mainMenuPan.add(btnHelp);
@@ -278,9 +273,6 @@ public class MainMenuPanel extends JFrame {
 		
 	}
 	
-
-	
-	//Play Button takes you here
 	public void optionGameScreen() 
 	{
 		//mainMenuPan.setVisible(false);
@@ -306,7 +298,7 @@ public class MainMenuPanel extends JFrame {
 		buttonMenuPanel.setBounds(220, 100, 900, 100);
 		buttonMenuPanel.setBackground(Color.black);
 
-		titleNameLabel = new JLabel("Choose a level");
+		titleNameLabel = new JLabel("Pick a level");
 		titleNameLabel.setForeground(Color.white);
 		buttonMenuPanel.add(titleNameLabel);
 		optionPanel.add(buttonMenuPanel);
@@ -316,7 +308,7 @@ public class MainMenuPanel extends JFrame {
 		easy.setBackground(Color.black);
 		easy.setForeground(new Color(153,255,153)); 
 		easy.setFont(normalFont);
-		easy.addActionListener(easyHandler);
+
 		easy.setBorder(null);
 		easy.setBounds(522, 200, 271, 82);
 		optionPanel.add(easy);
@@ -325,7 +317,7 @@ public class MainMenuPanel extends JFrame {
 		medium.setBackground(Color.black);
 		medium.setForeground(new Color(255,255,153)); 
 		medium.setFont(normalFont);
-		medium.addActionListener(medHandler);
+
 		medium.setBorder(null);
 		medium.setBounds(522, 300, 271, 82);
 		optionPanel.add(medium);
@@ -334,7 +326,7 @@ public class MainMenuPanel extends JFrame {
 		hard.setBackground(Color.black);
 		hard.setForeground(new Color(255,153,153)); 
 		hard.setFont(normalFont);
-		hard.addActionListener(hardHandler);
+
 		hard.setBorder(null);
 		hard.setBounds(522, 400, 271, 82);
 		optionPanel.add(hard);
@@ -349,241 +341,10 @@ public class MainMenuPanel extends JFrame {
 		optionPanel.add(back);
 
 		
-	}
-	
-	public void helpMenu()
-	{
-		layeredPane.setVisible(false);
-		
-		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1582, 853);
-		contentPane.add(layeredPane);
-		layeredPane.setLayout(new CardLayout(0, 0));
-		
-		optionPanel = new JPanel();
-		//optionPanel.setBounds(600,200,300,500);
-		optionPanel.setLayout(null);
-		optionPanel.setBackground(Color.black);
-		layeredPane.add(optionPanel);
-		
-		buttonMenuPanel = new JPanel();
-		buttonMenuPanel.setBounds(220, 100, 900, 100);
-		buttonMenuPanel.setBackground(Color.black);
-
-		titleNameLabel = new JLabel("HELP");
-		titleNameLabel.setForeground(Color.white);
-		buttonMenuPanel.add(titleNameLabel);
-		optionPanel.add(buttonMenuPanel);
-		titleNameLabel.setFont(titleFont2);
 		
 		
-		optionArea = new JLabel("How to Play");
-		optionArea.setBounds(100,300,600,250);
-		optionArea.setBackground(Color.black);
-		optionArea.setForeground(Color.white);
-		optionArea.setFont(normalFont);
-		//optionArea.setLineWrap(true);
-		optionPanel.add(optionArea);
-		
-		JButton back = new JButton("Back");
-		back.setBackground(Color.black);
-		back.setForeground(Color.white); 
-		back.setFont(normalFont);
-		back.addActionListener(backHandler);
-		back.setBorder(null);
-		back.setBounds(522, 700, 271, 82);
-		optionPanel.add(back);
-
-	}
-	
-	public void easyMenu()
-	{
-		layeredPane.setVisible(false);
-		
-		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1582, 853);
-		contentPane.add(layeredPane);
-		layeredPane.setLayout(new CardLayout(0, 0));
-		
-		optionPanel = new JPanel();
-		//optionPanel.setBounds(600,200,300,500);
-		optionPanel.setLayout(null);
-		optionPanel.setBackground(Color.black);
-		layeredPane.add(optionPanel);
-		
-		buttonMenuPanel = new JPanel();
-		buttonMenuPanel.setBounds(220, 100, 900, 100);
-		buttonMenuPanel.setBackground(Color.black);
-
-		titleNameLabel = new JLabel("Choose a recipe");
-		titleNameLabel.setForeground(Color.white);
-		buttonMenuPanel.add(titleNameLabel);
-		optionPanel.add(buttonMenuPanel);
-		titleNameLabel.setFont(titleFont2);
-		
-		JButton easy = new JButton("Cup of Noodles");
-		easy.setBackground(Color.black);
-		easy.setForeground(new Color(255,215,0)); 
-		easy.setFont(normalFont);
-
-		easy.setBorder(null);
-		easy.setBounds(522, 200, 400, 82);
-		optionPanel.add(easy);
-		
-		JButton medium = new JButton("Oat Meal");
-		medium.setBackground(Color.black);
-		medium.setForeground(new Color(245,222,179)); 
-		medium.setFont(normalFont);
-
-		medium.setBorder(null);
-		medium.setBounds(522, 300, 400, 82);
-		optionPanel.add(medium);
-		
-		JButton hard = new JButton("Berry Smoothie");
-		hard.setBackground(Color.black);
-		hard.setForeground(new Color(178,34,34)); 
-		hard.setFont(normalFont);
-
-		hard.setBorder(null);
-		hard.setBounds(522, 400, 400, 82);
-		optionPanel.add(hard);
-		
-		JButton back = new JButton("Back");
-		back.setBackground(Color.black);
-		back.setForeground(Color.white); 
-		back.setFont(normalFont);
-		back.addActionListener(tsHandler);
-		back.setBorder(null);
-		back.setBounds(522, 700, 271, 82);
-		optionPanel.add(back);
 
 		
-	}
-	
-	public void MediumMenu()
-	{
-layeredPane.setVisible(false);
-		
-		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1582, 853);
-		contentPane.add(layeredPane);
-		layeredPane.setLayout(new CardLayout(0, 0));
-		
-		optionPanel = new JPanel();
-		//optionPanel.setBounds(600,200,300,500);
-		optionPanel.setLayout(null);
-		optionPanel.setBackground(Color.black);
-		layeredPane.add(optionPanel);
-		
-		buttonMenuPanel = new JPanel();
-		buttonMenuPanel.setBounds(220, 100, 900, 100);
-		buttonMenuPanel.setBackground(Color.black);
-
-		titleNameLabel = new JLabel("Choose a recipe");
-		titleNameLabel.setForeground(Color.white);
-		buttonMenuPanel.add(titleNameLabel);
-		optionPanel.add(buttonMenuPanel);
-		titleNameLabel.setFont(titleFont2);
-		
-		JButton easy = new JButton("SOMETHING");
-		easy.setBackground(Color.black);
-		easy.setForeground(new Color(255,153,204)); 
-		easy.setFont(normalFont);
-
-		easy.setBorder(null);
-		easy.setBounds(522, 200, 400, 82);
-		optionPanel.add(easy);
-		
-		JButton medium = new JButton("SOMETHING");
-		medium.setBackground(Color.black);
-		medium.setForeground(new Color(255,153,204)); 
-		medium.setFont(normalFont);
-
-		medium.setBorder(null);
-		medium.setBounds(522, 300, 400, 82);
-		optionPanel.add(medium);
-		
-		JButton hard = new JButton("SOMETHING");
-		hard.setBackground(Color.black);
-		hard.setForeground(new Color(255,153,204)); 
-		hard.setFont(normalFont);
-
-		hard.setBorder(null);
-		hard.setBounds(522, 400, 400, 82);
-		optionPanel.add(hard);
-		
-		JButton back = new JButton("Back");
-		back.setBackground(Color.black);
-		back.setForeground(Color.white); 
-		back.setFont(normalFont);
-		back.addActionListener(tsHandler);
-		back.setBorder(null);
-		back.setBounds(522, 700, 271, 82);
-		optionPanel.add(back);
-
-	}
-	
-	public void HardMenu()
-	{
-layeredPane.setVisible(false);
-		
-		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1582, 853);
-		contentPane.add(layeredPane);
-		layeredPane.setLayout(new CardLayout(0, 0));
-		
-		optionPanel = new JPanel();
-		//optionPanel.setBounds(600,200,300,500);
-		optionPanel.setLayout(null);
-		optionPanel.setBackground(Color.black);
-		layeredPane.add(optionPanel);
-		
-		buttonMenuPanel = new JPanel();
-		buttonMenuPanel.setBounds(220, 100, 900, 100);
-		buttonMenuPanel.setBackground(Color.black);
-
-		titleNameLabel = new JLabel("Choose a recipe");
-		titleNameLabel.setForeground(Color.white);
-		buttonMenuPanel.add(titleNameLabel);
-		optionPanel.add(buttonMenuPanel);
-		titleNameLabel.setFont(titleFont2);
-		
-		JButton easy = new JButton("SOMETHING");
-		easy.setBackground(Color.black);
-		easy.setForeground(new Color(255,153,204)); 
-		easy.setFont(normalFont);
-
-		easy.setBorder(null);
-		easy.setBounds(522, 200, 400, 82);
-		optionPanel.add(easy);
-		
-		JButton medium = new JButton("SOMETHING");
-		medium.setBackground(Color.black);
-		medium.setForeground(new Color(255,153,204)); 
-		medium.setFont(normalFont);
-
-		medium.setBorder(null);
-		medium.setBounds(522, 300, 400, 82);
-		optionPanel.add(medium);
-		
-		JButton hard = new JButton("SOMETHING");
-		hard.setBackground(Color.black);
-		hard.setForeground(new Color(255,153,204)); 
-		hard.setFont(normalFont);
-
-		hard.setBorder(null);
-		hard.setBounds(522, 400, 400, 82);
-		optionPanel.add(hard);
-		
-		JButton back = new JButton("Back");
-		back.setBackground(Color.black);
-		back.setForeground(Color.white); 
-		back.setFont(normalFont);
-		back.addActionListener(tsHandler);
-		back.setBorder(null);
-		back.setBounds(522, 700, 271, 82);
-		optionPanel.add(back);
-
 	}
 	
 	public class TitleScreenHandler implements ActionListener {
@@ -607,46 +368,7 @@ layeredPane.setVisible(false);
 			MainMenu();
 		}
 }
-	public class EasyHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			
-			easyMenu();
-		}
-	
 }
-	public class MediumHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			
-			MediumMenu();
-		}
-	
-}
-	public class HardHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			
-			HardMenu();
-		}
-	
-}
-	
-	public class HelpHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			
-			helpMenu();
-		}
-	
-}
-	
-}
-
 
 
 
