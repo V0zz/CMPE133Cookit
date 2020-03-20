@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
 
 public class GamePanel extends JPanel {
 
@@ -20,11 +22,14 @@ public class GamePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public GamePanel() {
+		setPreferredSize(new Dimension(1600, 900));
 		setBackground(Color.BLACK);
 		setLayout(null);
 		File folder = new File("./src/final dish");
 		String[] recipes = folder.list();
 		JList list = new JList(recipes);
+		DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
+		renderer.setHorizontalAlignment(JLabel.CENTER);
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -34,15 +39,14 @@ public class GamePanel extends JPanel {
 			}
 		});
 		
-		list.setBounds(197, 97, 291, 341);
+		list.setBounds(598, 246, 291, 341);
 		add(list);
 		
 		JLabel Title = new JLabel("Recipe Selection");
 		Title.setForeground(Color.ORANGE);
 		Title.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		Title.setHorizontalAlignment(SwingConstants.CENTER);
-		Title.setBounds(197, 10, 291, 68);
+		Title.setBounds(598, 118, 291,87);
 		add(Title);
-
 	}
 }
