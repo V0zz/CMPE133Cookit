@@ -46,7 +46,7 @@ import javax.swing.JTextPane;
 
 public class MainMenuPanel extends JFrame {
 
-	private JPanel contentPane, mainMenuPan, gameMenuPan, GamePanel;
+	public static JPanel contentPane, mainMenuPan, gameMenuPan, GamePanel;
 	private JPanel titleNamePanel, pot, plate, grill, namePanel;
 	private JLabel titleNameLabel, nameLabel, potLabel, plateLabel, grillLabel;
 
@@ -60,7 +60,7 @@ public class MainMenuPanel extends JFrame {
 
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	BackHandler backHandler = new BackHandler();
-	private JLayeredPane layeredPane_1;
+	public static JLayeredPane layeredPane_1;
 	private JButton btnRecipeInformation;
 
 	private void setIcon() {
@@ -88,7 +88,7 @@ public class MainMenuPanel extends JFrame {
 		});
 	}
 
-	public void switchPanels(JPanel panel) {
+	private void switchPanels(JPanel panel) {
 		layeredPane_1.removeAll();
 		layeredPane_1.add(panel);
 		layeredPane_1.repaint();

@@ -18,6 +18,13 @@ import java.awt.Dimension;
 
 public class GamePanel extends JPanel {
 
+	public void switchPanels(JPanel panel) {
+		MainMenuPanel.layeredPane_1.removeAll();
+		MainMenuPanel.layeredPane_1.add(panel);
+		MainMenuPanel.layeredPane_1.repaint();
+		MainMenuPanel.layeredPane_1.revalidate();
+	}
+	
 	/**
 	 * Create the panel.
 	 */
@@ -53,5 +60,18 @@ public class GamePanel extends JPanel {
 		Title.setHorizontalAlignment(SwingConstants.CENTER);
 		Title.setBounds(598, 118, 291,87);
 		add(Title);
+		
+		JButton Back = new JButton("Back");
+		Back.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2) {
+					switchPanels(MainMenuPanel.mainMenuPan);
+				}
+			}
+		});
+		Back.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		Back.setBounds(642, 661, 246, 87);
+		add(Back);
 	}
 }
