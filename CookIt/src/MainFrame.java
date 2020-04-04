@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -44,9 +45,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextPane;
 
-public class MainMenuPanel extends JFrame {
+public class MainFrame extends JFrame {
 
-	public static JPanel contentPane, mainMenuPan, gameMenuPan, GamePanel;
+	public static JPanel contentPane, MainMenuPanel, gameMenuPan, RecipePanel, GamePanel;
 	private JPanel titleNamePanel, pot, plate, grill, namePanel;
 	private JLabel titleNameLabel, nameLabel, potLabel, plateLabel, grillLabel;
 
@@ -63,10 +64,6 @@ public class MainMenuPanel extends JFrame {
 	public static JLayeredPane layeredPane_1;
 	private JButton btnRecipeInformation;
 
-	private void setIcon() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("./resources/cook.png")));
-	}
-
 	/**
 	 * Launch the application.
 	 */
@@ -75,7 +72,8 @@ public class MainMenuPanel extends JFrame {
 
 			public void run() {
 				try {
-					MainMenuPanel frame = new MainMenuPanel();
+					MainFrame frame = new MainFrame();
+					frame.setTitle("Cook It!");
 					frame.setPreferredSize(new Dimension(1600, 900));
 					frame.setLocationRelativeTo(null);
 					frame.pack();
@@ -97,17 +95,18 @@ public class MainMenuPanel extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws IOException 
 	 */
-	public MainMenuPanel() {
+	public MainFrame() throws IOException {
 
 		MainMenu();
 		optionGameScreen();
-		switchPanels(mainMenuPan);
+		switchPanels(MainMenuPanel);
 	}
 
 	private void MainMenu() {
 		// Sets the Icon at the top left
-		setIcon();
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("./resources/cook.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1600, 900);
 		// CONTENTPANE
@@ -118,10 +117,10 @@ public class MainMenuPanel extends JFrame {
 		contentPane.setLayout(null);
 
 		// MAINMENUPAN
-		mainMenuPan = new JPanel();
+		MainMenuPanel = new JPanel();
 		//layeredPane.add(mainMenuPan);
-		mainMenuPan.setLayout(null);
-		mainMenuPan.setBackground(Color.black);
+		MainMenuPanel.setLayout(null);
+		MainMenuPanel.setBackground(Color.black);
 
 		// GamePan
 		gameMenuPan = new JPanel();
@@ -131,20 +130,20 @@ public class MainMenuPanel extends JFrame {
 
 		// TITLE CREATED HERE "COOK IT"
 		titleNamePanel = new JPanel();
-		titleNamePanel.setBounds(400, 100, 600, 150);
+		titleNamePanel.setBounds(499, 122, 600, 150);
 		titleNamePanel.setBackground(Color.black);
 
 		titleNameLabel = new JLabel("COOK IT!");
 		titleNameLabel.setForeground(Color.white);
 		titleNamePanel.add(titleNameLabel);
-		mainMenuPan.add(titleNamePanel);
+		MainMenuPanel.add(titleNamePanel);
 		titleNameLabel.setFont(titleFont);
 
 		// POT IMAGE
 		pot = new JPanel();
-		pot.setBounds(400, 480, 100, 150);
+		pot.setBounds(490, 480, 100, 150);
 		pot.setBackground(Color.orange);
-		mainMenuPan.add(pot);
+		MainMenuPanel.add(pot);
 
 		potLabel = new JLabel("");
 		potLabel.setIcon(new ImageIcon("./src/resources/pot.png"));
@@ -153,9 +152,9 @@ public class MainMenuPanel extends JFrame {
 
 		// PLATE IMAGE
 		plate = new JPanel();
-		plate.setBounds(800, 480, 100, 150);
+		plate.setBounds(1015, 480, 100, 150);
 		plate.setBackground(Color.orange);
-		mainMenuPan.add(plate);
+		MainMenuPanel.add(plate);
 
 		plateLabel = new JLabel("");
 		plateLabel.setIcon(new ImageIcon("./src/resources/plate.png"));
@@ -175,7 +174,7 @@ public class MainMenuPanel extends JFrame {
 
 		// CREATORS
 		namePanel = new JPanel();
-		namePanel.setBounds(400, 250, 600, 150);
+		namePanel.setBounds(499, 298, 600, 103);
 		namePanel.setBackground(Color.black);
 		namePanel.setLayout(null);
 
@@ -183,7 +182,7 @@ public class MainMenuPanel extends JFrame {
 		nameLabel.setBounds(37, 5, 526, 24);
 		nameLabel.setForeground(Color.orange);
 		namePanel.add(nameLabel);
-		mainMenuPan.add(namePanel);
+		MainMenuPanel.add(namePanel);
 		nameLabel.setFont(nameFont);
 
 		// PLAY BUTTON
@@ -193,7 +192,7 @@ public class MainMenuPanel extends JFrame {
 		btnPlay.setForeground(Color.white);
 		btnPlay.setFont(normalFont);
 
-		mainMenuPan.add(btnPlay);
+		MainMenuPanel.add(btnPlay);
 		btnPlay.setBorder(null);
 		btnPlay.addMouseListener(new MouseAdapter() {
 			@Override
@@ -212,16 +211,16 @@ public class MainMenuPanel extends JFrame {
 			}
 		});
 		btnPlay.setIcon(null);
-		btnPlay.setBounds(522, 390, 271, 82);
+		btnPlay.setBounds(667, 411, 271, 82);
 		
-		GamePanel = new GamePanel();
+		RecipePanel = new RecipePanel();
 		btnRecipeInformation = new JButton("Recipes");
 		btnRecipeInformation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 				if(e.getClickCount() == 2) {
-					switchPanels(GamePanel);
+					switchPanels(RecipePanel);
 				}
 			}
 		});
@@ -229,8 +228,8 @@ public class MainMenuPanel extends JFrame {
 		btnRecipeInformation.setFont(new Font("Times New Roman", Font.PLAIN, 50));
 		btnRecipeInformation.setBorder(null);
 		btnRecipeInformation.setBackground(Color.BLACK);
-		btnRecipeInformation.setBounds(522, 625, 271, 82);
-		mainMenuPan.add(btnRecipeInformation);
+		btnRecipeInformation.setBounds(677, 595, 271, 82);
+		MainMenuPanel.add(btnRecipeInformation);
 
 		// HELP BUTTON
 		JButton btnHelp = new JButton("Help");
@@ -239,8 +238,8 @@ public class MainMenuPanel extends JFrame {
 		btnHelp.setFont(normalFont);
 
 		btnHelp.setBorder(null);
-		btnHelp.setBounds(522, 518, 271, 82);
-		mainMenuPan.add(btnHelp);
+		btnHelp.setBounds(667, 503, 271, 82);
+		MainMenuPanel.add(btnHelp);
 
 		// EXIT BUTTON
 		JButton btnExit = new JButton("Exit");
@@ -249,8 +248,8 @@ public class MainMenuPanel extends JFrame {
 		btnExit.setFont(normalFont);
 
 		btnExit.setBorder(null);
-		btnExit.setBounds(522, 732, 271, 82);
-		mainMenuPan.add(btnExit);
+		btnExit.setBounds(667, 687, 271, 82);
+		MainMenuPanel.add(btnExit);
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -278,7 +277,7 @@ public class MainMenuPanel extends JFrame {
 
 	}
 
-	public void optionGameScreen() {
+	public void optionGameScreen() throws IOException {
 		// mainMenuPan.setVisible(false);
 		// titleNamePanel.setVisible(false);
 		// pot.setVisible(false);
@@ -299,7 +298,7 @@ public class MainMenuPanel extends JFrame {
 		layeredPane_1.add(optionPanel);
 
 		buttonMenuPanel = new JPanel();
-		buttonMenuPanel.setBounds(220, 100, 900, 100);
+		buttonMenuPanel.setBounds(261, 98, 900, 100);
 		buttonMenuPanel.setBackground(Color.black);
 
 		titleNameLabel = new JLabel("Pick a level");
@@ -307,14 +306,24 @@ public class MainMenuPanel extends JFrame {
 		buttonMenuPanel.add(titleNameLabel);
 		optionPanel.add(buttonMenuPanel);
 		titleNameLabel.setFont(titleFont2);
-
+		
+		GamePanel GamePanel = new GamePanel();
+		
 		JButton easy = new JButton("Easy");
+		easy.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2) {
+					switchPanels(GamePanel);
+				}
+			}
+		});
 		easy.setBackground(Color.black);
 		easy.setForeground(new Color(153, 255, 153));
 		easy.setFont(normalFont);
-
+		
 		easy.setBorder(null);
-		easy.setBounds(522, 200, 271, 82);
+		easy.setBounds(578, 220, 271, 82);
 		optionPanel.add(easy);
 
 		JButton medium = new JButton("Medium");
@@ -323,7 +332,7 @@ public class MainMenuPanel extends JFrame {
 		medium.setFont(normalFont);
 
 		medium.setBorder(null);
-		medium.setBounds(522, 300, 271, 82);
+		medium.setBounds(588, 308, 271, 82);
 		optionPanel.add(medium);
 
 		JButton hard = new JButton("Hard");
@@ -332,7 +341,7 @@ public class MainMenuPanel extends JFrame {
 		hard.setFont(normalFont);
 
 		hard.setBorder(null);
-		hard.setBounds(522, 400, 271, 82);
+		hard.setBounds(578, 400, 271, 82);
 		optionPanel.add(hard);
 
 		JButton back = new JButton("Back");
@@ -341,7 +350,7 @@ public class MainMenuPanel extends JFrame {
 		back.setFont(normalFont);
 		back.addActionListener(backHandler);
 		back.setBorder(null);
-		back.setBounds(522, 700, 271, 82);
+		back.setBounds(578, 694, 271, 82);
 		optionPanel.add(back);
 
 	}
@@ -361,7 +370,7 @@ public class MainMenuPanel extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 
-			switchPanels(mainMenuPan);
+			switchPanels(MainMenuPanel);
 		}
 	}
 }
