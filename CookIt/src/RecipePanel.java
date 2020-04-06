@@ -1,3 +1,4 @@
+
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JLabel;
@@ -15,9 +16,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import java.awt.Font;
 
 public class RecipePanel extends JPanel {
 
+	Font titleFont = new Font("Castellar", Font.PLAIN, 50);
+	Font normalFont = new Font("Times New Roman",Font.PLAIN, 50); 
+	
 	public void switchPanels(JPanel panel) {
 		MainFrame.layeredPane_1.removeAll();
 		MainFrame.layeredPane_1.add(panel);
@@ -54,24 +59,29 @@ public class RecipePanel extends JPanel {
 		recipeList.setBounds(432, 246, 291, 341);
 		add(recipeList);
 		
-		JLabel Title = new JLabel("Recipe Selection");
+		JLabel Title = new JLabel("Recipe List");
 		Title.setForeground(Color.ORANGE);
-		Title.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		//Title.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		Title.setHorizontalAlignment(SwingConstants.CENTER);
-		Title.setBounds(598, 118, 291,87);
+		Title.setBounds(598, 118, 400,87);
 		add(Title);
+		Title.setFont(titleFont);
 		
 		JButton Back = new JButton("Back");
 		Back.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() == 2) {
+				if(e.getClickCount() == 1) {
 					switchPanels(MainFrame.MainMenuPanel);
 				}
 			}
 		});
-		Back.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		Back.setBounds(642, 661, 246, 87);
+		Back.setBackground(Color.black);
+		Back.setForeground(Color.white); 
+		Back.setFont(normalFont);
+		Back.setBorder(null);
+		Back.setBounds(650, 700, 271, 82);
 		add(Back);
 	}
 }
+
