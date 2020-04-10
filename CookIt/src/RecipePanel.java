@@ -42,7 +42,7 @@ public class RecipePanel extends JPanel {
 		info.setBounds(846, 246, 291, 341);
 		add(info);
 		
-		File folder = new File("./src/final dish");
+		File folder = new File("./src/images/final dish");
 		String[] recipes = folder.list();
 		JList recipeList = new JList(recipes);
 		DefaultListCellRenderer renderer = (DefaultListCellRenderer) recipeList.getCellRenderer();

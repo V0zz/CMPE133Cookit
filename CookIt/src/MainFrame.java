@@ -1,7 +1,4 @@
 
-
-
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -109,7 +106,11 @@ public class MainFrame extends JFrame {
 
 	private void MainMenu() {
 		// Sets the Icon at the top left
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(("./src/images/resources/cook.png")));
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/cook.png")));
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1600, 900);
 		// CONTENTPANE
@@ -149,7 +150,7 @@ public class MainFrame extends JFrame {
 		MainMenuPanel.add(pot);
 
 		potLabel = new JLabel("");
-		potLabel.setIcon(new ImageIcon("./src/resources/pot.png"));
+		potLabel.setIcon(new ImageIcon("./src/images/resources/pot.png"));
 		potLabel.setBounds(200, 500, 600, 150);
 		pot.add(potLabel);
 
@@ -160,7 +161,7 @@ public class MainFrame extends JFrame {
 		MainMenuPanel.add(plate);
 
 		plateLabel = new JLabel("");
-		plateLabel.setIcon(new ImageIcon("./src/resources/plate.png"));
+		plateLabel.setIcon(new ImageIcon("./src/images/resources/plate.png"));
 		plateLabel.setBounds(200, 500, 600, 150);
 		plate.add(plateLabel);
 
@@ -171,7 +172,7 @@ public class MainFrame extends JFrame {
 		// mainMenuPan.add(grill);
 
 		grillLabel = new JLabel("");
-		grillLabel.setIcon(new ImageIcon("./src/resources/grill.png"));
+		grillLabel.setIcon(new ImageIcon("./src/images/resources/grill.png"));
 		grillLabel.setBounds(200, 500, 600, 150);
 		// grill.add(grillLabel);
 
@@ -279,25 +280,9 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-
-		// JLabel mainMenu = new JLabel("");
-
-		// Image img = new
-		// ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
-		// mainMenu.setIcon(new ImageIcon(img));
-		// mainMenu.setBounds(0, 0, 1582, 853);
-		// mainMenuPan.add(mainMenu);
-
 	}
 
 	public void optionGameScreen() throws IOException {
-		// mainMenuPan.setVisible(false);
-		// titleNamePanel.setVisible(false);
-		// pot.setVisible(false);
-		// plate.setVisible(false);
-		// namePanel.setVisible(false);
-
-		
 
 		layeredPane_1 = new JLayeredPane();
 		layeredPane_1.setBounds(0, 0, 1582, 853);

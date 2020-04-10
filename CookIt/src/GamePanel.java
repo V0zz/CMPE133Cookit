@@ -15,78 +15,97 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel {
-	
-	private String[] images;
-	
+
 	private class FoodListRenderer extends DefaultListCellRenderer {
 
-	    Font font = new Font("helvitica", Font.BOLD, 24);
+		Font font = new Font("helvitica", Font.BOLD, 24);
 
-	    @Override
-	    public Component getListCellRendererComponent(
-	            JList list, Object value, int index,
-	            boolean isSelected, boolean cellHasFocus) {
-
-	        JLabel label = (JLabel) super.getListCellRendererComponent(
-	                list, value, index, isSelected, cellHasFocus);
-	        BufferedImage img = null;
-			try {
-				img = ImageIO.read(new File("./src/ingredients/raw/" + ((String) value)));
-			} catch (IOException e) {
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+			
+			String param = (String) value;
+			String name = param.replace(".png", "");
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, name, index, isSelected, cellHasFocus);
+			
+			String temp = null;
+			for (String title : new String[] { "raw", "rice_wheat", "sauce", "vegetables", "kitchen tools"}) {
+				File folder = new File("./src/images/" + title);
+				String[] values = folder.list();
+				for(String s: values) {
+					if(s.equals(param)) {
+						temp = title;
+						break;
+					}
+				}
+				if(temp != null) break;
 			}
-			Image temp = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-	        label.setIcon(new ImageIcon(temp));
-	        label.setHorizontalTextPosition(JLabel.RIGHT);
-	        label.setFont(font);
-	        return label;
-	    }
+			
+			BufferedImage img = null;
+			try {
+				img = ImageIO.read(new File("./src/images/" + temp + "/" + param));	
+			} catch (IOException e) {
+				System.out.println("Couldn't find image");
+			}
+			label.setIcon(new ImageIcon(img));
+			label.setHorizontalTextPosition(JLabel.RIGHT);
+			label.setFont(font);
+			return label;
+		}
 	}
-	
+
 	/**
 	 * Create the panel.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public GamePanel() throws IOException {
-		
+
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(1600, 900));
 		setLayout(null);
 		
-		JList instructions = new JList();
-		instructions.setBounds(105, 189, 276, 598);
-		DefaultListCellRenderer renderer = (DefaultListCellRenderer) instructions.getCellRenderer();
-		renderer.setHorizontalAlignment(JLabel.CENTER);
-		add(instructions);
-		
-		File folder = new File("./src/ingredients/raw");
-		images = folder.list();
-		JList ingredients = new JList(images);
-		ingredients.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		ingredients.setCellRenderer(new FoodListRenderer());
-		ingredients.setBounds(382, 10, 801, 169);
-		JScrollPane scroll = new JScrollPane(ingredients);
-		scroll.setSize(900, 160);
-		scroll.setLocation(385, 30);
-        scroll.setPreferredSize(new Dimension(300, 400));
-		add(scroll);
-		
+		File f = new File("./src/images/kitchen tools");
+		JList instructions = new JList(f.list());
+		instructions.setLayoutOrientation(JList.VERTICAL);
+		instructions.setCellRenderer(new FoodListRenderer());
+		JScrollPane ins_scroll = new JScrollPane(instructions);
+		instructions.setBackground(Color.CYAN);
+		ins_scroll.setBounds(50,  300, 325, 500);
+		add(ins_scroll);
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(375, 35, 1100, 250);
+
+		for (String title : new String[] { "raw", "rice_wheat", "sauce", "vegetables" }) {
+			File folder = new File("./src/images/" + title);
+			JList ingredients = new JList(folder.list());
+			ingredients.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+			ingredients.setVisibleRowCount(4);
+			ingredients.setCellRenderer(new FoodListRenderer());
+			JScrollPane ing_scroll = new JScrollPane(ingredients);
+			ingredients.setBackground(Color.CYAN);
+			tabbedPane.add(title, ing_scroll);
+		}
+		add(tabbedPane);
+
 		JLabel Pot = new JLabel("Pot");
 		Pot.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Object obj = ingredients.getSelectedValue();
-				if(obj != null) {
+				Object obj = "TEMP";
+				if (obj != null) {
 					System.out.println((String) obj);
-				}
-				else System.out.println("null");
+				} else
+					System.out.println("null");
 			}
 		});
 		Pot.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		Pot.setForeground(Color.WHITE);
 		Pot.setHorizontalAlignment(SwingConstants.CENTER);
 		Pot.setBackground(Color.WHITE);
-		Pot.setBounds(718, 355, 336, 259);
-		BufferedImage img = ImageIO.read(new File("./src/kitchen tools/cooking pot.png"));
+		Pot.setBounds(735, 476, 336, 259);
+		BufferedImage img = ImageIO.read(new File("./src/images/kitchen tools/cooking pot.png"));
 		Image dimg = img.getScaledInstance(Pot.getWidth(), Pot.getHeight(), Image.SCALE_SMOOTH);
 		Pot.setIcon(new ImageIcon(dimg));
 		add(Pot);
