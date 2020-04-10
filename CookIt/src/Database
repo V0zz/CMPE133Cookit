@@ -1,0 +1,60 @@
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+
+public class testing {
+
+	public static String driver = "com.mysql.jdbc.Driver";
+	public static String url = "jdbc:mysql://localhost/explorecalifornia?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	public static String username = "cs133";
+	public static String password = "password123";
+	
+	
+//	public static void main(String[] args) throws Exception {
+//
+//		getConnection();
+//	}
+	
+	public static void main(String[]args) throws Exception{
+		{
+			try {
+				
+				Connection myConn = DriverManager.getConnection(url, username, password);
+				
+				Statement myStmt = myConn.createStatement();
+				
+				// Adding an entry to a table 	
+//				String sql = "INSERT INTO explorers" + "(firstName, lastName)" + "VALUES ('Richard', 'Smith')";
+//				
+				// Updating an entry to a table
+//				String sql = " UPDATE explorers " + "SET firstName = 'Richard' " + " WHERE explorerId = 1 ";
+				
+				// Deleting an entry from a table
+//				String sql = "DELETE FROM explorers WHERE lastName = 'Smith' ";
+				
+//				myStmt.executeUpdate(sql);
+	
+				ResultSet myRs = myStmt.executeQuery("SELECT * FROM states");
+				
+//				while(myRs.next()){
+//					System.out.println(myRs.getString("firstName") + " " + myRs.getString("lastName"));
+//				}
+				myRs.next();
+				System.out.println(myRs.getBlob("picture"));
+				
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
