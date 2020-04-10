@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -47,7 +46,7 @@ import javax.swing.JTextPane;
 
 public class MainFrame extends JFrame {
 
-	public static JPanel contentPane, MainMenuPanel, gameMenuPan, RecipePanel, GamePanel;
+	public static JPanel contentPane, MainMenuPanel, gameMenuPan, RecipePanel, GamePanel,HelpPanel;
 	private JPanel titleNamePanel, pot, plate, grill, namePanel;
 	private JLabel titleNameLabel, nameLabel, potLabel, plateLabel, grillLabel;
 
@@ -62,7 +61,7 @@ public class MainFrame extends JFrame {
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	BackHandler backHandler = new BackHandler();
 	public static JLayeredPane layeredPane_1;
-	private JButton btnRecipeInformation;
+	private JButton btnRecipeInformation, btnHelp;
 
 	/**
 	 * Launch the application.
@@ -106,7 +105,7 @@ public class MainFrame extends JFrame {
 
 	private void MainMenu() {
 		// Sets the Icon at the top left
-		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("./resources/cook.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(("./src/images/resources/cook.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1600, 900);
 		// CONTENTPANE
@@ -146,7 +145,7 @@ public class MainFrame extends JFrame {
 		MainMenuPanel.add(pot);
 
 		potLabel = new JLabel("");
-		potLabel.setIcon(new ImageIcon("./src/resources/pot.png"));
+		potLabel.setIcon(new ImageIcon("./src/images/resources/pot.png"));
 		potLabel.setBounds(200, 500, 600, 150);
 		pot.add(potLabel);
 
@@ -157,7 +156,7 @@ public class MainFrame extends JFrame {
 		MainMenuPanel.add(plate);
 
 		plateLabel = new JLabel("");
-		plateLabel.setIcon(new ImageIcon("./src/resources/plate.png"));
+		plateLabel.setIcon(new ImageIcon("./src/images/resources/plate.png"));
 		plateLabel.setBounds(200, 500, 600, 150);
 		plate.add(plateLabel);
 
@@ -168,7 +167,7 @@ public class MainFrame extends JFrame {
 		// mainMenuPan.add(grill);
 
 		grillLabel = new JLabel("");
-		grillLabel.setIcon(new ImageIcon("./src/resources/grill.png"));
+		grillLabel.setIcon(new ImageIcon("./src/images/resources/grill.png"));
 		grillLabel.setBounds(200, 500, 600, 150);
 		// grill.add(grillLabel);
 
@@ -219,20 +218,30 @@ public class MainFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(e.getClickCount() == 2) {
+				if(e.getClickCount() == 1) {
 					switchPanels(RecipePanel);
 				}
 			}
 		});
 		btnRecipeInformation.setForeground(Color.WHITE);
-		btnRecipeInformation.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+		btnRecipeInformation.setFont(normalFont);
 		btnRecipeInformation.setBorder(null);
 		btnRecipeInformation.setBackground(Color.BLACK);
 		btnRecipeInformation.setBounds(677, 595, 271, 82);
 		MainMenuPanel.add(btnRecipeInformation);
 
 		// HELP BUTTON
-		JButton btnHelp = new JButton("Help");
+		HelpPanel = new HelpPanel();
+		btnHelp = new JButton("Help");
+		btnHelp.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					if(e.getClickCount() == 1) {
+						switchPanels(HelpPanel);
+					}
+				}
+			});
 		btnHelp.setBackground(Color.black);
 		btnHelp.setForeground(Color.white);
 		btnHelp.setFont(normalFont);
@@ -266,25 +275,9 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-
-		// JLabel mainMenu = new JLabel("");
-
-		// Image img = new
-		// ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
-		// mainMenu.setIcon(new ImageIcon(img));
-		// mainMenu.setBounds(0, 0, 1582, 853);
-		// mainMenuPan.add(mainMenu);
-
 	}
 
 	public void optionGameScreen() throws IOException {
-		// mainMenuPan.setVisible(false);
-		// titleNamePanel.setVisible(false);
-		// pot.setVisible(false);
-		// plate.setVisible(false);
-		// namePanel.setVisible(false);
-
-		
 
 		layeredPane_1 = new JLayeredPane();
 		layeredPane_1.setBounds(0, 0, 1582, 853);
@@ -302,7 +295,7 @@ public class MainFrame extends JFrame {
 		buttonMenuPanel.setBackground(Color.black);
 
 		titleNameLabel = new JLabel("Pick a level");
-		titleNameLabel.setForeground(Color.white);
+		titleNameLabel.setForeground(Color.orange);
 		buttonMenuPanel.add(titleNameLabel);
 		optionPanel.add(buttonMenuPanel);
 		titleNameLabel.setFont(titleFont2);
@@ -313,7 +306,7 @@ public class MainFrame extends JFrame {
 		easy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() == 2) {
+				if(e.getClickCount() == 1) {
 					switchPanels(GamePanel);
 				}
 			}
