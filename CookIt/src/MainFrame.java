@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -105,7 +106,11 @@ public class MainFrame extends JFrame {
 
 	private void MainMenu() {
 		// Sets the Icon at the top left
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(("./src/images/resources/cook.png")));
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/cook.png")));
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1600, 900);
 		// CONTENTPANE
