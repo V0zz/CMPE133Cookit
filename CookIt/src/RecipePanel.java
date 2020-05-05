@@ -1,13 +1,17 @@
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.awt.Color;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -39,25 +43,48 @@ public class RecipePanel extends JPanel {
 		setLayout(null);
 		
 		JList info = new JList();
-		info.setBounds(846, 246, 291, 341);
-		add(info);
+		info.setLayoutOrientation(JList.VERTICAL);
+		info.setCellRenderer(new FoodListRenderer());
+		JScrollPane info_scroll = new JScrollPane (info);
+		info_scroll.setBounds(846, 246, 291, 341);
+		add(info_scroll);
 		
-		File folder = new File("./src/images/final dish");
+		File folder = new File("./src/images/recipes");
 		String[] recipes = folder.list();
 		JList recipeList = new JList(recipes);
-		DefaultListCellRenderer renderer = (DefaultListCellRenderer) recipeList.getCellRenderer();
-		renderer.setHorizontalAlignment(JLabel.CENTER);
+		recipeList.setLayoutOrientation(JList.VERTICAL);
+		recipeList.setCellRenderer(new FoodListRenderer(new String[] {"final dish"}));
 		recipeList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2) {
-					info.setListData(new String[] {(String) recipeList.getSelectedValue()});
+					String recipe = (String) recipeList.getSelectedValue();
+					ArrayList<String> order = new ArrayList<>();
+					try {
+						BufferedReader br = new BufferedReader(new FileReader("./src/images/recipes/"+recipe));  
+						String line = null;  
+						while ((line = br.readLine()) != null)  
+						{  
+							if(line.equals("Game Order:")) {
+								String tempLine = null;
+								while ((tempLine = br.readLine()) != null) {
+									if(tempLine.trim().length() > 0)
+										order.add(tempLine+".png");
+								}
+								break;
+							}
+						} 
+					}
+					catch(Exception exc) {
+						exc.printStackTrace();
+					}
+					info.setListData(order.toArray());
 				}
 			}
 		});
-		
-		recipeList.setBounds(432, 246, 291, 341);
-		add(recipeList);
+		JScrollPane recipeList_scroll = new JScrollPane(recipeList);
+		recipeList_scroll.setBounds(432, 246, 291, 341);
+		add(recipeList_scroll);
 		
 		JLabel Title = new JLabel("Recipe List");
 		Title.setForeground(Color.ORANGE);

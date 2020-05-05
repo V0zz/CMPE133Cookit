@@ -3,12 +3,14 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -305,14 +307,21 @@ public class MainFrame extends JFrame {
 		optionPanel.add(buttonMenuPanel);
 		titleNameLabel.setFont(titleFont2);
 		
-		GamePanel GamePanel = new GamePanel();
 		
 		JButton easy = new JButton("Easy");
 		easy.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 1) {
-					switchPanels(GamePanel);
+					File f = new File("./src/images/recipes");
+					Random r = new Random();
+					String[] fileList = f.list();
+					int index = r.nextInt(fileList.length);
+					try {
+						switchPanels(new GamePanel(fileList[index]));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
