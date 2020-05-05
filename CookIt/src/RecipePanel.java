@@ -1,5 +1,6 @@
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -42,14 +43,17 @@ public class RecipePanel extends JPanel {
 		setLayout(null);
 		
 		JList info = new JList();
-		info.setBounds(846, 246, 291, 341);
-		add(info);
+		info.setLayoutOrientation(JList.VERTICAL);
+		info.setCellRenderer(new FoodListRenderer());
+		JScrollPane info_scroll = new JScrollPane (info);
+		info_scroll.setBounds(846, 246, 291, 341);
+		add(info_scroll);
 		
 		File folder = new File("./src/images/recipes");
 		String[] recipes = folder.list();
 		JList recipeList = new JList(recipes);
-		DefaultListCellRenderer renderer = (DefaultListCellRenderer) recipeList.getCellRenderer();
-		renderer.setHorizontalAlignment(JLabel.CENTER);
+		recipeList.setLayoutOrientation(JList.VERTICAL);
+		recipeList.setCellRenderer(new FoodListRenderer(new String[] {"final dish"}));
 		recipeList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -64,7 +68,8 @@ public class RecipePanel extends JPanel {
 							if(line.equals("Game Order:")) {
 								String tempLine = null;
 								while ((tempLine = br.readLine()) != null) {
-									order.add(tempLine);
+									if(tempLine.trim().length() > 0)
+										order.add(tempLine+".png");
 								}
 								break;
 							}
@@ -77,9 +82,9 @@ public class RecipePanel extends JPanel {
 				}
 			}
 		});
-		
-		recipeList.setBounds(432, 246, 291, 341);
-		add(recipeList);
+		JScrollPane recipeList_scroll = new JScrollPane(recipeList);
+		recipeList_scroll.setBounds(432, 246, 291, 341);
+		add(recipeList_scroll);
 		
 		JLabel Title = new JLabel("Recipe List");
 		Title.setForeground(Color.ORANGE);

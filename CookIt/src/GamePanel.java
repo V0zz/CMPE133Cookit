@@ -4,7 +4,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -25,44 +27,6 @@ public class GamePanel extends JPanel {
 		MainFrame.layeredPane_1.repaint();
 		MainFrame.layeredPane_1.revalidate();
 	}
-	
-	private class FoodListRenderer extends DefaultListCellRenderer {
-
-		Font font = new Font("helvitica", Font.BOLD, 24);
-
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-				boolean cellHasFocus) {
-			
-			String param = (String) value;
-			String name = param.replace(".png", "");
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, name, index, isSelected, cellHasFocus);
-			
-			String temp = null;
-			for (String title : new String[] { "raw", "rice_wheat", "sauce", "vegetables", "kitchen tools"}) {
-				File folder = new File("./src/images/" + title);
-				String[] values = folder.list();
-				for(String s: values) {
-					if(s.equals(param)) {
-						temp = title;
-						break;
-					}
-				}
-				if(temp != null) break;
-			}
-			
-			BufferedImage img = null;
-			try {
-				img = ImageIO.read(new File("./src/images/" + temp + "/" + param));	
-			} catch (IOException e) {
-				System.out.println("Couldn't find image");
-			}
-			label.setIcon(new ImageIcon(img));
-			label.setHorizontalTextPosition(JLabel.RIGHT);
-			label.setFont(font);
-			return label;
-		}
-	}
 
 	/**
 	 * Create the panel.
@@ -74,6 +38,39 @@ public class GamePanel extends JPanel {
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(1600, 900));
 		setLayout(null);
+		
+		JLabel final_dish = new JLabel(recipeName.split(".txt")[0].toUpperCase());
+		final_dish.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		BufferedImage temp = null;
+		final_dish.setBounds(50, 35, 315, 250);
+		try {
+		    temp = ImageIO.read(new File("./src/images/final dish/"+recipeName.replace(".txt", ".png")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Image temp_dimg = temp.getScaledInstance(final_dish.getWidth(), final_dish.getHeight(),
+		        Image.SCALE_SMOOTH);
+		final_dish.setIcon(new ImageIcon(temp_dimg));
+		final_dish.setHorizontalTextPosition(JLabel.CENTER);
+		final_dish.setVerticalTextPosition(JLabel.CENTER);
+		add(final_dish);
+		
+		
+		DefaultListModel<String> actual_order = new DefaultListModel<>();
+		BufferedReader br = new BufferedReader(new FileReader("./src/images/recipes/"+"boiled egg.txt"));  
+		String line = null;  
+		while ((line = br.readLine()) != null)  
+		{  
+			if(line.equals("Game Order:")) {
+				String tempLine = null;
+				while ((tempLine = br.readLine()) != null) {
+					if(tempLine.trim().length() > 0)
+						actual_order.addElement((tempLine+".png"));
+				}
+				break;
+			}
+		} 
+		
 		DefaultListModel<String> selectedOrder = new DefaultListModel<>();
 		
 		JList instructions = new JList(selectedOrder);
@@ -83,7 +80,7 @@ public class GamePanel extends JPanel {
 //		instructions.setBackground(Color.CYAN);
 		ins_scroll.setBounds(50,  300, 325, 500);
 		add(ins_scroll);
-
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(375, 35, 1100, 250);
 
@@ -115,6 +112,22 @@ public class GamePanel extends JPanel {
 				if(!item.equals("None")) {
 					selectedOrder.addElement(item);
 					item = "None";
+					
+					boolean win = true;
+					if(actual_order.size() == selectedOrder.size()) {
+						
+						for(int i=0;i<actual_order.size();i++) {
+							if(!selectedOrder.get(i).equals(actual_order.get(i))) {
+								win = false;
+								break;
+							}
+						}
+						
+						if(win) {
+							System.out.println("You win!!");
+							switchPanels(MainFrame.MainMenuPanel);
+						}
+					}
 				}
 			}
 		});
